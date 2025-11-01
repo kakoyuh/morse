@@ -5,56 +5,182 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Morse Beat</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
-* { box-sizing: border-box; font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif; }
+/* ================== 通用 ================== */
+* { box-sizing: border-box; font-family: "Poppins", sans-serif; margin: 0; padding: 0; }
 body {
-  background: linear-gradient(180deg, #f2f4f7, #dce3ea);
-  min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;
-  transition: background 0.3s ease; background-size: cover; background-position: center; background-repeat: no-repeat;
+  background: radial-gradient(circle at top, #1a1a1a, #0e0e0e);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  overflow-x: hidden;
 }
-.container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+
+/* ================== 容器 ================== */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  width: 100%;
+  max-width: 1000px;
+  z-index: 2;
+  position: relative;
+}
+
+/* ================== 卡片 ================== */
 .card {
-  backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.6); border-radius: 30px;
-  box-shadow: 0 4px 30px rgba(0,0,0,0.1); padding: 30px; width: 340px; text-align: center; transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35);
+  padding: 25px;
+  width: 320px;
+  text-align: center;
+  transition: all 0.3s ease;
+  z-index: 2;
 }
-h1,h2 { font-weight: 600; color: #007AFF; margin-bottom: 15px; }
-input,textarea {
-  width: 100%; padding: 12px; border-radius: 15px; border: 1px solid rgba(0,0,0,0.1);
-  outline: none; margin-bottom: 15px; font-size: 16px; resize: none; text-align: center;
-  background: rgba(255,255,255,0.4);
+.card:hover { transform: translateY(-5px); }
+
+h1, h2 {
+  font-weight: 600;
+  margin-bottom: 15px;
+  background: linear-gradient(90deg, #00ccff, #00ffaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  resize: none;
+  text-align: center;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  margin-bottom: 15px;
+}
+
 .output {
-  font-size: 18px; color: #333; background: rgba(255,255,255,0.4);
-  border-radius: 15px; padding: 15px; margin-bottom: 15px; min-height: 40px; transition: all 0.3s ease; word-wrap: break-word;
+  background: rgba(0,0,0,0.4);
+  border-radius: 10px;
+  padding: 15px;
+  min-height: 50px;
+  color: #aef;
+  font-size: 16px;
+  margin-bottom: 15px;
+  word-break: break-word;
 }
+
 button {
-  background: #007AFF; color: white; border: none; border-radius: 15px;
-  padding: 10px 20px; font-size: 15px; margin: 5px; cursor: pointer; transition: all 0.2s ease;
+  background: linear-gradient(135deg, #00aaff, #00ffaa);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: #000;
+  font-weight: 600;
+  margin: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-button:hover { background: #005ecb; }
-.copy-btn { background: #34C759; } .copy-btn:hover { background: #248a3d; }
-.share-btn { background: #FF9500; } .share-btn:hover { background: #cc7a00; }
+button:hover { background: linear-gradient(135deg, #00ccff, #00ffcc); transform: scale(1.05); }
+
+.copy-btn { background: linear-gradient(135deg, #34C759, #4cd964); }
+.copy-btn:hover { background: linear-gradient(135deg, #28a745, #34c759); }
+.share-btn { background: linear-gradient(135deg, #ff9500, #ffaa33); }
+.share-btn:hover { background: linear-gradient(135deg, #cc7a00, #ff9500); }
+
 .flash { animation: flash 0.2s ease; }
-@keyframes flash { 0% { background-color: #007aff33; } 100% { background-color: transparent; } }
+@keyframes flash { 0% { background-color: #00ffaa33; } 100% { background-color: transparent; } }
+
 .toast {
-  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(30px);
-  background: rgba(255,255,255,0.65); backdrop-filter: blur(20px); border-radius: 25px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15); color: #000; padding: 12px 28px; font-size: 15px;
-  font-weight: 500; opacity: 0; pointer-events: none; transition: all 0.4s ease;
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 25px;
+  opacity: 0;
+  transition: all 0.4s ease;
+  font-size: 15px;
+  z-index: 999;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-.bg-upload {
-  position: fixed; top: 20px; right: 20px; backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.5); border-radius: 25px; padding: 10px 15px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1); cursor: pointer; font-weight: 500; transition: all 0.2s ease;
+
+/* ================== 背景上傳區 ================== */
+.upload-card img { width: 100%; margin-top: 10px; border-radius: 12px; display: none; }
+
+/* ================== 廣告 ================== */
+.ad {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 300px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  text-align: center;
+  padding: 15px;
+  color: #fff;
+  z-index: 1;
 }
-.bg-upload:hover { background: rgba(255,255,255,0.7); }
+.ad-left { left: 10px; }
+.ad-right { right: 10px; }
+
+@media(max-width:767px){
+  .ad { display: none; }
+  .card { width: 90%; }
+  .upload-card { order: -1; margin-bottom: 20px; width: 90%; }
+}
+
+/* ================== 上傳區 RWD ================== */
+@media(min-width:768px){
+  .upload-card {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 250px;
+  }
+}
+
+/* ================== Footer ================== */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  font-size: 14px;
+  z-index: 2;
+}
 </style>
 </head>
 <body>
 
-<label class="bg-upload">上傳背景<input type="file" id="bgInput" style="display:none;" accept="image/*"></label>
+<!-- 桌面廣告 -->
+<div class="ad ad-left">廣告左</div>
+<div class="ad ad-right">廣告右</div>
 
 <div class="container">
 
@@ -84,31 +210,46 @@ button:hover { background: #005ecb; }
     </div>
   </div>
 
+  <!-- 背景上傳區 -->
+  <div class="card upload-card">
+    <h2>🖼 上傳背景</h2>
+    <input type="file" id="bgInput" accept="image/*" />
+    <img id="preview">
+  </div>
+
 </div>
 
 <div id="toast" class="toast">✅ 已複製！</div>
 
+<footer>© 2025 MorseBeat</footer>
+
 <script>
-// 摩斯碼邏輯
-const textInput=document.getElementById("textInput");
-const morseOutput=document.getElementById("morseOutput");
-const convertBtn=document.getElementById("convertBtn");
-const playBtn=document.getElementById("playBtn");
-const stopBtn=document.getElementById("stopBtn");
+// ===== 摩斯碼邏輯 =====
+const textInput = document.getElementById("textInput");
+const morseOutput = document.getElementById("morseOutput");
+const convertBtn = document.getElementById("convertBtn");
+const playBtn = document.getElementById("playBtn");
+const stopBtn = document.getElementById("stopBtn");
+const decodeInput = document.getElementById("decodeInput");
+const decodeOutput = document.getElementById("decodeOutput");
+const decodeBtn = document.getElementById("decodeBtn");
 
-const decodeInput=document.getElementById("decodeInput");
-const decodeOutput=document.getElementById("decodeOutput");
-const decodeBtn=document.getElementById("decodeBtn");
-
-const morseCode={A:".-",B:"-...",C:"-.-.",D:"-..",E:".",F:"..-.",G:"--.",H:"....",I:"..",J:".---",K:"-.-",L:".-..",M:"--",N:"-.",O:"---",P:".--.",Q:"--.-",R:".-.",S:"...",T:"-",U:"..-",V:"...-",W:".--",X:"-..-",Y:"-.--",Z:"--..","1":".----","2":"..---","3":"...--","4":"....-","5":".....","6":"-....","7":"--...","8":"---..","9":"----.","0":"-----"," ":"/"};
-const morseToText={}; for(let k in morseCode)morseToText[morseCode[k]]=k;
+const MORSE = {
+  A: ".-", B: "-...", C: "-.-.", D: "-..", E: ".", F: "..-.", G: "--.", H: "....",
+  I: "..", J: ".---", K: "-.-", L: ".-..", M: "--", N: "-.", O: "---",
+  P: ".--.", Q: "--.-", R: ".-.", S: "...", T: "-", U: "..-", V: "...-", W: ".--",
+  X: "-..-", Y: "-.--", Z: "--..",
+  "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....",
+  "6": "-....", "7": "--...", "8": "---..", "9": "----.", "0": "-----", " ": "/"
+};
+const REVERSE = Object.fromEntries(Object.entries(MORSE).map(([k,v]) => [v,k]));
 
 let audioCtx, playing=false;
-function textToMorse(t){return t.toUpperCase().split("").map(c=>morseCode[c]||"").join(" ");}
-function morseToEnglish(m){return m.split(" / ").map(w=>w.split(" ").map(s=>morseToText[s]||"").join("")).join(" ");}
+function textToMorse(t){return t.toUpperCase().split("").map(c=>MORSE[c]||"").join(" "); }
+function morseToText(m){return m.split(" / ").map(w=>w.split(" ").map(s=>REVERSE[s]||"").join("")).join(" ");}
 
-convertBtn.addEventListener("click",()=>{morseOutput.textContent=textToMorse(textInput.value.trim())||"（無效輸入）";});
-decodeBtn.addEventListener("click",()=>{decodeOutput.textContent=morseToEnglish(decodeInput.value.trim())||"（無效摩斯碼）";});
+convertBtn.onclick = ()=>{ morseOutput.textContent = textToMorse(textInput.value.trim()) || "（無效輸入）"; };
+decodeBtn.onclick = ()=>{ decodeOutput.textContent = morseToText(decodeInput.value.trim()) || "（無效摩斯碼）"; };
 
 function playMorse(m){
   if(!m||playing)return;
@@ -121,53 +262,59 @@ function playMorse(m){
     else if(s===" ")time+=unit*2;
     else if(s==="/")time+=unit*6;
   });
-  setTimeout(()=>{playing=false;},(time-audioCtx.currentTime)*1000);
+  setTimeout(()=>playing=false,(time-audioCtx.currentTime)*1000);
 }
-function beep(start,d){const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="sine";o.frequency.setValueAtTime(600,audioCtx.currentTime);o.connect(g);g.connect(audioCtx.destination);o.start(start);o.stop(start+d);}
-function flash(){morseOutput.classList.add("flash"); setTimeout(()=>morseOutput.classList.remove("flash"),100);}
+function beep(start,d){
+  const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+  o.type="sine"; o.frequency.setValueAtTime(600,audioCtx.currentTime);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(start); o.stop(start+d);
+}
+function flash(){
+  morseOutput.classList.add("flash");
+  setTimeout(()=>morseOutput.classList.remove("flash"),100);
+}
+playBtn.onclick=()=>{const m=morseOutput.textContent.trim(); if(m&&m!=="等待輸入...") playMorse(m);};
+stopBtn.onclick=()=>{if(audioCtx)audioCtx.close(); playing=false;};
 
-playBtn.addEventListener("click",()=>{const m=morseOutput.textContent.trim();if(m&&m!=="等待輸入...")playMorse(m);});
-stopBtn.addEventListener("click",()=>{if(audioCtx)audioCtx.close();playing=false;});
-
-// 複製與 Toast
-function copyText(id){const t=document.getElementById(id).textContent.trim();if(!t||t==="等待輸入..."||t==="等待解碼...")return;navigator.clipboard.writeText(t);showToast("✅ 已複製！");}
-function showToast(msg){const toast=document.getElementById("toast");toast.textContent=msg;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1500);}
-
-// 分享功能
+// ===== 複製與分享 =====
+function copyText(id){
+  const t=document.getElementById(id).textContent.trim();
+  if(!t||t.startsWith("等待"))return;
+  navigator.clipboard.writeText(t);
+  showToast("✅ 已複製！");
+}
 function shareText(id){
-  const text=document.getElementById(id).textContent.trim();
-  if(!text||text==="等待輸入..."||text==="等待解碼...") return;
-  const url=window.location.origin+window.location.pathname+"?share="+encodeURIComponent(text);
-
-  if(navigator.share){
-    navigator.share({title:"Morse Beat 分享", text:text, url:url});
-  } else {
-    // fallback: 打開社群分享選項
-    const shareLink=prompt("複製分享連結:",url);
-    if(shareLink) showToast("🔗 分享連結已複製！");
-  }
+  const t=document.getElementById(id).textContent.trim();
+  if(!t||t.startsWith("等待"))return;
+  const url=location.origin+location.pathname+"?share="+encodeURIComponent(t);
+  if(navigator.share) navigator.share({title:"Morse Beat",text:t,url});
+  else { prompt("複製分享連結：",url); showToast("🔗 分享連結已複製！"); }
+}
+function showToast(msg){
+  const toast=document.getElementById("toast");
+  toast.textContent=msg; toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),1500);
 }
 
-// 背景上傳
-const bgInput=document.getElementById("bgInput");
-bgInput.addEventListener("change",e=>{
+// ===== 背景上傳 =====
+document.getElementById("bgInput").addEventListener("change", e=>{
   const file=e.target.files[0];
-  if(file){
-    const reader=new FileReader();
-    reader.onload=function(ev){document.body.style.backgroundImage=`url(${ev.target.result})`;localStorage.setItem("bgImage",ev.target.result);}
-    reader.readAsDataURL(file);
-  }
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload = ev => {
+    document.body.style.backgroundImage = `url(${ev.target.result})`;
+  };
+  reader.readAsDataURL(file);
 });
-const bgData=localStorage.getItem("bgImage");
-if(bgData) document.body.style.backgroundImage=`url(${bgData})`;
 
-// 如果網址帶 share 參數，自動填入摩斯碼
+// ===== URL 分享自動解碼 =====
 const params=new URLSearchParams(window.location.search);
 if(params.has("share")){
   const shared=params.get("share");
-  morseOutput.textContent=shared;
+  decodeInput.value=shared;
+  decodeOutput.textContent=morseToText(shared) || "（無效摩斯碼）";
 }
-
 </script>
 </body>
 </html>
