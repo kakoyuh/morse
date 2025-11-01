@@ -5,8 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-adsense-account" content="ca-pub-6741848109234929">
 <title>Morse Beat</title>
+
+<!-- ===== Google AdSense ===== -->
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6741848109234929"
      crossorigin="anonymous"></script>
+
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
@@ -150,7 +153,6 @@ button:hover { background: linear-gradient(135deg, #00ccff, #00ffcc); transform:
 @media(max-width:767px){
   .ad { display: none; }
   .card { width: 90%; }
-  .upload-card { order: -1; margin-bottom: 20px; width: 90%; }
 }
 
 /* ================== 上傳區 RWD ================== */
@@ -160,6 +162,13 @@ button:hover { background: linear-gradient(135deg, #00ccff, #00ffcc); transform:
     bottom: 20px;
     right: 20px;
     width: 250px;
+  }
+}
+@media(max-width:767px){
+  .upload-card {
+    position: static;
+    width: 90%;
+    margin-top: 20px;
   }
 }
 
@@ -182,8 +191,23 @@ footer {
 <body>
 
 <!-- 桌面廣告 -->
-<div class="ad ad-left">廣告左</div>
-<div class="ad ad-right">廣告右</div>
+<div class="ad ad-left">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-6741848109234929"
+       data-ad-slot="1234567890"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
+
+<div class="ad ad-right">
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-6741848109234929"
+       data-ad-slot="9876543210"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+</div>
 
 <div class="container">
 
@@ -213,7 +237,7 @@ footer {
     </div>
   </div>
 
-  <!-- 背景上傳區 -->
+  <!-- 上傳背景區（最後一個） -->
   <div class="card upload-card">
     <h2>🖼 上傳背景</h2>
     <input type="file" id="bgInput" accept="image/*" />
@@ -227,6 +251,9 @@ footer {
 <footer>© 2025 MorseBeat</footer>
 
 <script>
+// ===== AdSense 初始化 =====
+(adsbygoogle = window.adsbygoogle || []).push({});
+
 // ===== 摩斯碼邏輯 =====
 const textInput = document.getElementById("textInput");
 const morseOutput = document.getElementById("morseOutput");
@@ -311,14 +338,47 @@ document.getElementById("bgInput").addEventListener("change", e=>{
   reader.readAsDataURL(file);
 });
 
-// ===== URL 分享自動解碼 =====
-const params=new URLSearchParams(window.location.search);
-if(params.has("share")){
-  const shared=params.get("share");
-  decodeInput.value=shared;
-  decodeOutput.textContent=morseToText(shared) || "（無效摩斯碼）";
+
+// ===== URL 分享驚喜模式 =====
+const params = new URLSearchParams(window.location.search);
+if (params.has("share")) {
+  const shared = params.get("share");
+  
+  // 隱藏主要輸入區
+  document.querySelector(".container").style.display = "none";
+  
+  // 建立驚喜解鎖畫面
+  const surprise = document.createElement("div");
+  surprise.style.cssText = `
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; height:100vh; color:#fff; font-size:18px;
+  `;
+  surprise.innerHTML = `
+    <h2>🔒 你收到一段摩斯密碼！</h2>
+    <p style="margin:10px 0 20px;">想知道裡面藏著什麼訊息嗎？</p>
+    <button id="revealBtn" style="
+      background:linear-gradient(135deg,#00ffaa,#00aaff);
+      border:none; border-radius:10px; padding:12px 24px;
+      color:#000; font-weight:600; cursor:pointer; font-size:16px;
+    ">🔓 解碼看看</button>
+  `;
+  document.body.appendChild(surprise);
+  
+  // 點擊後顯示結果
+  document.getElementById("revealBtn").onclick = () => {
+    surprise.innerHTML = `
+      <h2>🎁 解碼結果</h2>
+      <div style="margin-top:15px; padding:15px 25px; background:rgba(255,255,255,0.1); border-radius:10px;">
+        ${morseToText(shared) || "（無效摩斯碼）"}
+      </div>
+      <button onclick="location.href='/'" style="
+        margin-top:20px; padding:10px 20px; border:none; border-radius:10px;
+        background:linear-gradient(135deg,#00aaff,#00ffaa); color:#000; font-weight:600; cursor:pointer;
+      ">返回 Morse Beat</button>
+    `;
+  };
 }
+
 </script>
 </body>
 </html>
-
