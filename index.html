@@ -1,465 +1,255 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="google-adsense-account" content="ca-pub-6741848109234929">
-<title>Morse Beat</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-adsense-account" content="ca-pub-XXXXXXX"> <!-- 換成你的 publisher ID -->
+  <title>Morse Beat</title>
 
-<!-- ===== Google AdSense (publisher id 已填) - 自動廣告 + 手動版位佔位 ===== -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6741848109234929"
-     crossorigin="anonymous"></script>
-<!-- 注意：穿插式/錨定式需在 AdSense 後台啟用（你剛才的設定畫面） -->
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX"
+    crossorigin="anonymous"></script>
 
-<style>
-  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+    *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+    body{
+      background:radial-gradient(circle at top,#1a1a1a,#0e0e0e);
+      color:#fff;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding-top:80px;
+      overflow-x:hidden;
+    }
 
-  * { box-sizing: border-box; font-family: "Poppins", sans-serif; margin: 0; padding: 0; }
-  body {
-    background: radial-gradient(circle at top, #1a1a1a, #0e0e0e);
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #fff;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 40px 20px;
-    overflow-x: hidden;
-  }
+    /* 廣告區 */
+    .ad-top,.ad-bottom{
+      width:100%;
+      text-align:center;
+      margin:10px 0;
+    }
+    .ad-left,.ad-right{
+      position:fixed;
+      top:50%;
+      transform:translateY(-50%);
+      width:120px;
+      height:300px;
+      text-align:center;
+      background:rgba(255,255,255,0.08);
+      border-radius:15px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:1;
+    }
+    .ad-left{left:10px;}
+    .ad-right{right:10px;}
 
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
-    width: 100%;
-    max-width: 1000px;
-    z-index: 2;
-    position: relative;
-  }
+    /* 手機彈窗廣告 */
+    .ad-popup{
+      position:fixed;
+      bottom:-400px;
+      left:50%;
+      transform:translateX(-50%);
+      width:90%;
+      max-width:400px;
+      background:rgba(255,255,255,0.1);
+      border-radius:20px;
+      text-align:center;
+      padding:15px;
+      transition:all .6s ease;
+      z-index:999;
+      backdrop-filter:blur(10px);
+    }
+    .ad-popup.show{bottom:20px;}
+    .ad-popup button{
+      background:#00ffaa;
+      border:none;
+      border-radius:10px;
+      padding:6px 12px;
+      font-weight:600;
+      margin-top:8px;
+    }
 
-  .card {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35);
-    padding: 25px;
-    width: 320px;
-    text-align: center;
-    transition: all 0.3s ease;
-    z-index: 2;
-  }
-  .card:hover { transform: translateY(-5px); }
+    /* 容器 */
+    .container{
+      max-width:1000px;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:25px;
+      z-index:2;
+      position:relative;
+    }
 
-  h1, h2 {
-    font-weight: 600;
-    margin-bottom: 15px;
-    background: linear-gradient(90deg, #00ccff, #00ffaa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
+    .card{
+      background:rgba(255,255,255,0.08);
+      border-radius:20px;
+      backdrop-filter:blur(15px);
+      box-shadow:0 4px 30px rgba(0,0,0,0.35);
+      padding:25px;
+      width:320px;
+      text-align:center;
+      transition:all 0.3s ease;
+    }
+    .card:hover{transform:translateY(-5px);}
+    h1,h2{
+      font-weight:600;
+      background:linear-gradient(90deg,#00ccff,#00ffaa);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      margin-bottom:15px;
+    }
 
-  input, textarea {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-    font-size: 15px;
-    resize: none;
-    text-align: center;
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-    margin-bottom: 15px;
-  }
+    input,textarea{
+      width:100%;
+      padding:12px;
+      border-radius:10px;
+      border:none;
+      outline:none;
+      font-size:15px;
+      background:rgba(255,255,255,0.08);
+      color:#fff;
+      margin-bottom:15px;
+      text-align:center;
+    }
+    .output{
+      background:rgba(0,0,0,0.4);
+      border-radius:10px;
+      padding:15px;
+      min-height:50px;
+      color:#aef;
+      font-size:16px;
+      margin-bottom:15px;
+      word-break:break-word;
+    }
+    button{
+      background:linear-gradient(135deg,#00aaff,#00ffaa);
+      border:none;
+      border-radius:10px;
+      padding:10px 16px;
+      color:#000;
+      font-weight:600;
+      margin:5px;
+      cursor:pointer;
+      transition:all .2s ease;
+    }
+    button:hover{transform:scale(1.05);}
+    footer{
+      text-align:center;
+      width:100%;
+      padding:15px 0;
+      font-size:14px;
+      background:rgba(0,0,0,0.4);
+      backdrop-filter:blur(10px);
+      position:relative;
+      margin-top:60px;
+    }
 
-  .output {
-    background: rgba(0,0,0,0.4);
-    border-radius: 10px;
-    padding: 15px;
-    min-height: 50px;
-    color: #aef;
-    font-size: 16px;
-    margin-bottom: 15px;
-    word-break: break-word;
-  }
-
-  button {
-    background: linear-gradient(135deg, #00aaff, #00ffaa);
-    border: none;
-    border-radius: 10px;
-    padding: 10px 16px;
-    color: #000;
-    font-weight: 600;
-    margin: 5px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  button:hover { background: linear-gradient(135deg, #00ccff, #00ffcc); transform: scale(1.05); }
-
-  .copy-btn { background: linear-gradient(135deg, #34C759, #4cd964); }
-  .copy-btn:hover { background: linear-gradient(135deg, #28a745, #34c759); }
-  .share-btn { background: linear-gradient(135deg, #ff9500, #ffaa33); }
-  .share-btn:hover { background: linear-gradient(135deg, #cc7a00, #ff9500); }
-
-  .flash { animation: flash 0.2s ease; }
-  @keyframes flash { 0% { background-color: #00ffaa33; } 100% { background-color: transparent; } }
-
-  .toast {
-    position: fixed;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%) translateY(30px);
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(15px);
-    color: #fff;
-    padding: 12px 25px;
-    border-radius: 25px;
-    opacity: 0;
-    transition: all 0.4s ease;
-    font-size: 15px;
-    z-index: 999;
-  }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-  .upload-card img { width: 100%; margin-top: 10px; border-radius: 12px; display: none; }
-
-  /* ===== 手動廣告位樣式（佔位） ===== */
-  .ad {
-    position: fixed;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    background: rgba(255,255,255,0.04);
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.06);
-    backdrop-filter: blur(10px);
-  }
-
-  /* 側欄廣告（桌機） */
-  .ad-left, .ad-right {
-    width: 120px;
-    height: 300px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .ad-left { left: 10px; }
-  .ad-right { right: 10px; }
-
-  /* 頂部 / 底部 錨定廣告 (anchor) */
-  .ad-top, .ad-bottom {
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 980px;
-    margin: 0 auto;
-    height: auto;
-    padding: 6px;
-  }
-  .ad-top { top: 8px; position: fixed; }
-  .ad-bottom { bottom: 8px; position: fixed; }
-
-  /* 手機介面調整：隱藏側欄，top/bottom 縮窄 */
-  @media (max-width: 767px) {
-    .ad-left, .ad-right { display: none; }
-    .ad-top, .ad-bottom { max-width: 360px; width: 94%; }
-    .card { width: 90%; }
-    .upload-card { order: -1; margin-bottom: 20px; width: 90%; }
-  }
-
-  /* Footer */
-  footer {
-    width: 100%;
-    text-align: center;
-    padding: 15px 0;
-    color: #fff;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(10px);
-    font-size: 14px;
-    z-index: 2;
-  }
-
-  /* 神秘分享畫面樣式 */
-  .surprise-screen {
-    position: fixed;
-    inset: 0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.8));
-    z-index: 1000;
-    color: #fff;
-    padding: 30px;
-  }
-  .surprise-inner {
-    width: min(640px, 92%);
-    background: rgba(255,255,255,0.04);
-    border-radius: 14px;
-    padding: 24px;
-    text-align: center;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-  }
-  .surprise-inner button { margin-top: 16px; }
-</style>
+    /* RWD */
+    @media(max-width:767px){
+      .ad-left,.ad-right{display:none;}
+    }
+  </style>
 </head>
+
 <body>
-
-  <!-- ===== 手動版位：上方錨定 (請在 AdSense 建立廣告單元後替換 data-ad-slot) ===== -->
-  <div class="ad ad-top" aria-hidden="true">
+  <!-- 上方廣告 -->
+  <div class="ad-top">
     <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-6741848109234929"
-         data-ad-slot="REPLACE_TOP_SLOT"   <!-- <-- 把 REPLACE_TOP_SLOT 換成你上方廣告的 ad-slot -->
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
+      style="display:block"
+      data-ad-client="ca-pub-XXXXXXX"
+      data-ad-slot="1111111111"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
   </div>
 
-  <!-- ===== 手動版位：左側（桌機） ===== -->
-  <div class="ad ad-left" aria-hidden="true">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-6741848109234929"
-         data-ad-slot="REPLACE_LEFT_SLOT"  <!-- <-- 把 REPLACE_LEFT_SLOT 換成你左側廣告的 ad-slot -->
-         data-ad-format="auto"></ins>
-  </div>
+  <!-- 左右廣告 -->
+  <div class="ad-left">左側廣告位</div>
+  <div class="ad-right">右側廣告位</div>
 
-  <!-- ===== 手動版位：右側（桌機） ===== -->
-  <div class="ad ad-right" aria-hidden="true">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-6741848109234929"
-         data-ad-slot="REPLACE_RIGHT_SLOT"  <!-- <-- 把 REPLACE_RIGHT_SLOT 換成你右側廣告的 ad-slot -->
-         data-ad-format="auto"></ins>
-  </div>
-
-  <!-- ===== 手動版位：下方錨定 (請在 AdSense 建立廣告單元後替換 data-ad-slot) ===== -->
-  <div class="ad ad-bottom" aria-hidden="true">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-6741848109234929"
-         data-ad-slot="REPLACE_BOTTOM_SLOT"  <!-- <-- 把 REPLACE_BOTTOM_SLOT 換成你下方廣告的 ad-slot -->
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-  </div>
-
-  <!-- ===== 主要內容容器 ===== -->
+  <!-- Morse Beat 主內容 -->
   <div class="container">
-
-    <!-- 編碼區 -->
     <div class="card">
       <h1>🎵 Morse Beat</h1>
       <input type="text" id="textInput" placeholder="輸入文字..." />
       <div class="output" id="morseOutput">等待輸入...</div>
-      <div>
-        <button id="convertBtn">轉換</button>
-        <button id="playBtn">播放節奏</button>
-        <button id="stopBtn">停止</button>
-        <button class="copy-btn" onclick="copyText('morseOutput')">複製摩斯碼</button>
-        <button class="share-btn" id="shareBtn">分享摩斯碼</button>
-      </div>
+      <button id="convertBtn">轉換</button>
+      <button id="playBtn">播放節奏</button>
+      <button id="stopBtn">停止</button>
     </div>
 
-    <!-- 解碼區 -->
     <div class="card">
       <h2>🔍 解碼區</h2>
-      <textarea id="decodeInput" rows="4" placeholder="輸入摩斯碼（例如：.... . .-.. .-.. ---）"></textarea>
+      <textarea id="decodeInput" rows="4" placeholder="輸入摩斯碼..."></textarea>
       <div class="output" id="decodeOutput">等待解碼...</div>
-      <div>
-        <button id="decodeBtn">解碼</button>
-        <button class="copy-btn" onclick="copyText('decodeOutput')">複製解碼文字</button>
-        <button class="share-btn" onclick="shareText('decodeOutput')">分享文字</button>
-      </div>
+      <button id="decodeBtn">解碼</button>
     </div>
 
-    <!-- 上傳背景區（最後一個） -->
-    <div class="card upload-card">
+    <div class="card">
       <h2>🖼 上傳背景</h2>
       <input type="file" id="bgInput" accept="image/*" />
-      <img id="preview" alt="背景預覽">
     </div>
-
   </div>
 
-  <div id="toast" class="toast">✅ 已複製！</div>
-  <footer>© 2025 MorseBeat</footer>
+  <!-- 新增介紹內容區 -->
+  <section style="max-width:900px;text-align:center;margin:50px 20px;">
+    <h2>💡 關於 Morse Beat</h2>
+    <p>這是一個結合摩斯碼與音樂節奏的創意工具。輸入文字即可轉換成摩斯節拍，還能即時播放聲音、上傳個人背景，打造專屬風格的摩斯節奏頁面。</p>
+    <br>
+    <h2>✨ 特色功能</h2>
+    <ul style="list-style:none;line-height:1.8;">
+      <li>🔸 文字轉摩斯碼並可播放聲音節奏</li>
+      <li>🔸 摩斯碼解碼成原文</li>
+      <li>🔸 支援上傳背景圖個人化頁面</li>
+      <li>🔸 分享密碼模式（解碼才可顯示訊息）</li>
+    </ul>
+  </section>
 
-<script>
-  // ===== 初始化手動廣告（push） =====
-  // 這會告訴 AdSense 在頁面上的 <ins> 區塊載入廣告
-  (adsbygoogle = window.adsbygoogle || []).push({});
+  <!-- 下方廣告 -->
+  <div class="ad-bottom">
+    <ins class="adsbygoogle"
+      style="display:block"
+      data-ad-client="ca-pub-XXXXXXX"
+      data-ad-slot="2222222222"
+      data-ad-format="auto"
+      data-full-width-responsive="true"></ins>
+  </div>
 
-  // ===== 摩斯碼邏輯 =====
-  const textInput = document.getElementById("textInput");
-  const morseOutput = document.getElementById("morseOutput");
-  const convertBtn = document.getElementById("convertBtn");
-  const playBtn = document.getElementById("playBtn");
-  const stopBtn = document.getElementById("stopBtn");
+  <!-- 手機彈窗廣告 -->
+  <div class="ad-popup" id="popupAd">
+    <p>📢 手機專屬廣告位</p>
+    <button onclick="document.getElementById('popupAd').classList.remove('show')">關閉</button>
+  </div>
 
-  const decodeInput = document.getElementById("decodeInput");
-  const decodeOutput = document.getElementById("decodeOutput");
-  const decodeBtn = document.getElementById("decodeBtn");
+  <footer>© 2025 Morse Beat | 本網站使用 Google AdSense 提供廣告服務</footer>
 
-  const MORSE = {
-    A: ".-", B: "-...", C: "-.-.", D: "-..", E: ".", F: "..-.", G: "--.", H: "....",
-    I: "..", J: ".---", K: "-.-", L: ".-..", M: "--", N: "-.", O: "---",
-    P: ".--.", Q: "--.-", R: ".-.", S: "...", T: "-", U: "..-", V: "...-", W: ".--",
-    X: "-..-", Y: "-.--", Z: "--..",
-    "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....",
-    "6": "-....", "7": "--...", "8": "---..", "9": "----.", "0": "-----", " ": "/"
-  };
-  const REVERSE = Object.fromEntries(Object.entries(MORSE).map(([k,v]) => [v,k]));
+  <script>
+    // 摩斯邏輯（簡版）
+    const MORSE={A:".-",B:"-...",C:"-.-.",D:"-..",E:".",F:"..-.",G:"--.",H:"....",I:"..",J:".---",K:"-.-",L:".-..",M:"--",N:"-.",O:"---",P:".--.",Q:"--.-",R:".-.",S:"...",T:"-",U:"..-",V:"...-",W:".--",X:"-..-",Y:"-.--",Z:"--..","1":".----","2":"..---","3":"...--","4":"....-","5":".....","6":"-....","7":"--...","8":"---..","9":"----.","0":"-----"," ":"/"};
+    const REVERSE=Object.fromEntries(Object.entries(MORSE).map(([k,v])=>[v,k]));
+    function textToMorse(t){return t.toUpperCase().split("").map(c=>MORSE[c]||"").join(" "); }
+    function morseToText(m){return m.split(" / ").map(w=>w.split(" ").map(s=>REVERSE[s]||"").join("")).join(" ");}
 
-  let audioCtx, playing=false;
-  function textToMorse(t){return t.toUpperCase().split("").map(c=>MORSE[c]||"").join(" "); }
-  function morseToText(m){return m.split(" / ").map(w=>w.split(" ").map(s=>REVERSE[s]||"").join("")).join(" ");}
+    document.getElementById("convertBtn").onclick=()=>{
+      document.getElementById("morseOutput").textContent=textToMorse(document.getElementById("textInput").value.trim())||"（無效輸入）";
+    };
+    document.getElementById("decodeBtn").onclick=()=>{
+      document.getElementById("decodeOutput").textContent=morseToText(document.getElementById("decodeInput").value.trim())||"（無效摩斯碼）";
+    };
 
-  convertBtn.onclick = ()=>{ morseOutput.textContent = textToMorse(textInput.value.trim()) || "（無效輸入）"; };
-  decodeBtn.onclick = ()=>{ decodeOutput.textContent = morseToText(decodeInput.value.trim()) || "（無效摩斯碼）"; };
-
-  function playMorse(m){
-    if(!m||playing)return;
-    playing=true;
-    audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-    const unit=0.15; let time=audioCtx.currentTime;
-    m.split("").forEach(s=>{
-      if(s==="."){beep(time,unit);flash();time+=unit*2;}
-      else if(s==="-"){beep(time,unit*3);flash();time+=unit*4;}
-      else if(s===" ")time+=unit*2;
-      else if(s==="/")time+=unit*6;
+    // 上傳背景
+    document.getElementById("bgInput").addEventListener("change",e=>{
+      const file=e.target.files[0];if(!file)return;
+      const reader=new FileReader();
+      reader.onload=ev=>{document.body.style.backgroundImage=`url(${ev.target.result})`;};
+      reader.readAsDataURL(file);
     });
-    setTimeout(()=>playing=false,(time-audioCtx.currentTime)*1000);
-  }
-  function beep(start,d){
-    const o=audioCtx.createOscillator(),g=audioCtx.createGain();
-    o.type="sine"; o.frequency.setValueAtTime(600,audioCtx.currentTime);
-    o.connect(g); g.connect(audioCtx.destination);
-    o.start(start); o.stop(start+d);
-  }
-  function flash(){
-    morseOutput.classList.add("flash");
-    setTimeout(()=>morseOutput.classList.remove("flash"),100);
-  }
-  playBtn.onclick=()=>{const m=morseOutput.textContent.trim(); if(m&&m!=="等待輸入...") playMorse(m);};
-  stopBtn.onclick=()=>{if(audioCtx)audioCtx.close(); playing=false;};
 
-  // ===== 複製與分享 =====
-  function copyText(id){
-    const t=document.getElementById(id).textContent.trim();
-    if(!t||t.startsWith("等待"))return;
-    navigator.clipboard.writeText(t);
-    showToast("✅ 已複製！");
-  }
-  function shareText(id){
-    const t=document.getElementById(id).textContent.trim();
-    if(!t||t.startsWith("等待"))return;
-    const url=location.origin+location.pathname+"?share="+encodeURIComponent(t);
-    if(navigator.share) navigator.share({title:"Morse Beat",text:t,url});
-    else { prompt("複製分享連結：",url); showToast("🔗 分享連結已複製！"); }
-  }
-  function showToast(msg){
-    const toast=document.getElementById("toast");
-    toast.textContent=msg; toast.classList.add("show");
-    setTimeout(()=>toast.classList.remove("show"),1500);
-  }
-
-  // 分享按鈕：複製連結（並引導使用者）
-  document.getElementById("shareBtn").addEventListener("click", ()=>{
-    const m = morseOutput.textContent.trim();
-    if(!m || m==="等待輸入...") { showToast("⚠️ 先轉換一段文字再分享"); return; }
-    const url = location.origin + location.pathname + "?share=" + encodeURIComponent(m);
-    // 用 Web Share API 或 fallback
-    if(navigator.share) {
-      navigator.share({ title: "Morse Beat", text: "給你一段摩斯驚喜！", url })
-        .catch(()=>{ prompt("分享連結：", url); });
-    } else {
-      prompt("分享連結（複製）：", url);
-    }
-  });
-
-  // ===== 背景上傳 =====
-  document.getElementById("bgInput").addEventListener("change", e=>{
-    const file=e.target.files[0]; if(!file) return;
-    const reader=new FileReader();
-    reader.onload = ev => {
-      document.body.style.backgroundImage = `url(${ev.target.result})`;
-      const img = document.getElementById("preview");
-      img.src = ev.target.result;
-      img.style.display = "block";
-    };
-    reader.readAsDataURL(file);
-  });
-
-  // ===== URL 分享驚喜模式（需要按「解碼」才顯示） =====
-  (function handleShareSurprise(){
-    const params = new URLSearchParams(window.location.search);
-    if (!params.has("share")) return;
-    const shared = params.get("share");
-
-    // 隱藏主要內容、顯示驚喜畫面
-    document.querySelector(".container").style.filter = "blur(2px)";
-    const surprise = document.createElement("div");
-    surprise.className = "surprise-screen";
-    surprise.innerHTML = `
-      <div class="surprise-inner">
-        <h2>🔒 你收到一段摩斯密碼！</h2>
-        <p style="margin-top:8px;">按下「解碼」揭曉驚喜。<br>（按下後會顯示解碼結果）</p>
-        <div style="display:flex; gap:10px; justify-content:center; margin-top:18px;">
-          <button id="revealBtn">🔓 解碼</button>
-          <button id="closeBtn" style="background:rgba(255,255,255,0.06); color:#fff;">取消</button>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(surprise);
-
-    // 解碼按鈕
-    document.getElementById("revealBtn").onclick = () => {
-      // 顯示結果在一個卡片內（避免自動跳到 decode 區）
-      const result = morseToText(shared) || "（無效摩斯碼）";
-      surprise.querySelector(".surprise-inner").innerHTML = `
-        <h2>🎁 解碼結果</h2>
-        <div style="margin-top:12px; padding:14px; background:rgba(255,255,255,0.06); border-radius:10px;">
-          <strong style="font-size:18px;">${escapeHtml(result)}</strong>
-        </div>
-        <div style="margin-top:18px;">
-          <button id="toSiteBtn">回到網站</button>
-        </div>
-      `;
-      document.getElementById("toSiteBtn").onclick = ()=> {
-        // 移除 query 參數並顯示 decode 結果在 decode 區（可選）
-        history.replaceState(null, "", location.pathname);
-        surprise.remove();
-        document.querySelector(".container").style.filter = "none";
-        decodeInput.value = shared;
-        decodeOutput.textContent = morseToText(shared) || "（無效摩斯碼）";
-      };
-    };
-
-    // 取消按鈕
-    document.getElementById("closeBtn").onclick = () => {
-      surprise.remove();
-      document.querySelector(".container").style.filter = "none";
-      // 清除 query (避免重新載入時仍然出現)
-      history.replaceState(null, "", location.pathname);
-    };
-  })();
-
-  // ===== 工具函式 =====
-  function escapeHtml(text) {
-    return text.replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]; });
-  }
-
-  // ===== 如果想讓手動廣告在動態載入後再次 push (例如 SPA) =====
-  // window.onload 已經做了一次 push；若你有動態新增 <ins>，可以再次呼叫 (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+    // 手機彈窗廣告
+    setTimeout(()=>{document.getElementById('popupAd').classList.add('show');},4000);
+  </script>
 </body>
 </html>
