@@ -3,126 +3,188 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="google-adsense-account" content="ca-pub-XXXXXXX">
 <title>Morse Beat</title>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX" crossorigin="anonymous"></script>
-
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
-*{box-sizing:border-box;font-family:"Poppins",sans-serif;margin:0;padding:0;}
-body{
-  background:radial-gradient(circle at top,#1a1a1a,#0e0e0e);
-  color:#fff;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  padding-top:80px;
-  overflow-x:hidden;
+
+/* ================== 通用 ================== */
+* { box-sizing: border-box; font-family: "Poppins", sans-serif; margin: 0; padding: 0; }
+body {
+  background: radial-gradient(circle at top, #1a1a1a, #0e0e0e);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  overflow-x: hidden;
 }
-.ad-top,.ad-bottom{width:100%;text-align:center;margin:10px 0;}
-.ad-left,.ad-right{
-  position:fixed; top:50%; transform:translateY(-50%);
-  width:120px; height:300px; text-align:center;
-  background:rgba(255,255,255,0.08);
-  border-radius:15px; display:flex;
-  align-items:center; justify-content:center; z-index:1;
+
+/* ================== 容器 ================== */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  width: 100%;
+  max-width: 1000px;
+  z-index: 2;
+  position: relative;
 }
-.ad-left{left:10px;} .ad-right{right:10px;}
-.ad-popup{
-  position:fixed; bottom:-400px; left:50%; transform:translateX(-50%);
-  width:90%; max-width:400px;
-  background:rgba(255,255,255,0.1);
-  border-radius:20px; text-align:center; padding:15px;
-  transition:all .6s ease; z-index:999; backdrop-filter:blur(10px);
+
+/* ================== 卡片 ================== */
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35);
+  padding: 25px;
+  width: 320px;
+  text-align: center;
+  transition: all 0.3s ease;
+  z-index: 2;
 }
-.ad-popup.show{bottom:20px;}
-.ad-popup button{
-  background:#00ffaa;border:none;border-radius:10px;
-  padding:6px 12px;font-weight:600;margin-top:8px;
+.card:hover { transform: translateY(-5px); }
+
+h1, h2 {
+  font-weight: 600;
+  margin-bottom: 15px;
+  background: linear-gradient(90deg, #00ccff, #00ffaa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.container{
-  max-width:1000px;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:25px;
-  z-index:2;
-  position:relative;
+
+input, textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  resize: none;
+  text-align: center;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  margin-bottom: 15px;
 }
-.card{
-  background:rgba(255,255,255,0.08);
-  border-radius:20px;
-  backdrop-filter:blur(15px);
-  box-shadow:0 4px 30px rgba(0,0,0,0.35);
-  padding:25px;
-  width:320px;
-  text-align:center;
-  transition:all 0.3s ease;
+
+.output {
+  background: rgba(0,0,0,0.4);
+  border-radius: 10px;
+  padding: 15px;
+  min-height: 50px;
+  color: #aef;
+  font-size: 16px;
+  margin-bottom: 15px;
+  word-break: break-word;
 }
-.card:hover{transform:translateY(-5px);}
-h1,h2{
-  font-weight:600;
-  background:linear-gradient(90deg,#00ccff,#00ffaa);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  margin-bottom:15px;
+
+button {
+  background: linear-gradient(135deg, #00aaff, #00ffaa);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  color: #000;
+  font-weight: 600;
+  margin: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-input,textarea{
-  width:100%; padding:12px;
-  border-radius:10px; border:none; outline:none;
-  font-size:15px; margin-bottom:15px;
-  background:rgba(255,255,255,0.08); color:#fff;
-  text-align:center; resize:none;
-}
-.output{
-  background:rgba(0,0,0,0.4);
-  border-radius:10px;
-  padding:15px;
-  min-height:50px;
-  color:#aef;
-  font-size:16px;
-  margin-bottom:15px;
-  word-break:break-word;
-}
-button{
-  background:linear-gradient(135deg,#00aaff,#00ffaa);
-  border:none; border-radius:10px;
-  padding:10px 16px; color:#000; font-weight:600;
-  margin:5px; cursor:pointer; transition:all .2s ease;
-}
-button:hover{transform:scale(1.05);}
-.copy-btn { background: linear-gradient(135deg,#34C759,#4cd964);}
-.copy-btn:hover{background: linear-gradient(135deg,#28a745,#34c759);}
-.share-btn { background: linear-gradient(135deg,#ff9500,#ffaa33);}
-.share-btn:hover { background: linear-gradient(135deg,#cc7a00,#ff9500); }
+button:hover { background: linear-gradient(135deg, #00ccff, #00ffcc); transform: scale(1.05); }
+
+.copy-btn { background: linear-gradient(135deg, #34C759, #4cd964); }
+.copy-btn:hover { background: linear-gradient(135deg, #28a745, #34c759); }
+.share-btn { background: linear-gradient(135deg, #ff9500, #ffaa33); }
+.share-btn:hover { background: linear-gradient(135deg, #cc7a00, #ff9500); }
+
 .flash { animation: flash 0.2s ease; }
-@keyframes flash {0%{background-color:#00ffaa33;}100%{background-color:transparent;}}
-.toast{
-  position:fixed; bottom:60px; left:50%;
-  transform:translateX(-50%) translateY(30px);
-  background:rgba(255,255,255,0.15);
-  border:1px solid rgba(255,255,255,0.1);
-  backdrop-filter:blur(15px);
-  color:#fff; padding:12px 25px;
-  border-radius:25px; opacity:0; transition:all .4s ease; font-size:15px;
+@keyframes flash { 0% { background-color: #00ffaa33; } 100% { background-color: transparent; } }
+
+.toast {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 25px;
+  opacity: 0;
+  transition: all 0.4s ease;
+  font-size: 15px;
+  z-index: 999;
 }
-.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
-.upload-card img{width:100%; margin-top:10px; border-radius:12px; display:none;}
-@media(max-width:767px){.ad-left,.ad-right{display:none;}.card{width:90%;}.upload-card{order:-1;}}
-@media(min-width:768px){.upload-card{order:3;}}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ================== 背景上傳區 ================== */
+.upload-card img { width: 100%; margin-top: 10px; border-radius: 12px; display: none; }
+
+/* ================== 廣告 ================== */
+.ad {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 300px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  text-align: center;
+  padding: 15px;
+  color: #fff;
+  z-index: 1;
+}
+.ad-left { left: 10px; }
+.ad-right { right: 10px; }
+
+@media(max-width:767px){
+  .ad { display: none; }
+  .card { width: 90%; }
+  .upload-card { order: -1; margin-bottom: 20px; width: 90%; }
+}
+
+/* ================== 上傳區 RWD ================== */
+@media(min-width:768px){
+  .upload-card {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 250px;
+  }
+}
+
+/* ================== Footer ================== */
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 15px 0;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  font-size: 14px;
+  z-index: 2;
+}
 </style>
 </head>
 <body>
 
-<!-- 上下左右廣告 -->
-<div class="ad-top"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXX" data-ad-slot="1111111111" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
-<div class="ad-left">左側廣告位</div>
-<div class="ad-right">右側廣告位</div>
+<!-- 桌面廣告 -->
+<div class="ad ad-left">廣告左</div>
+<div class="ad ad-right">廣告右</div>
 
 <div class="container">
 
+  <!-- 編碼區 -->
   <div class="card">
     <h1>🎵 Morse Beat</h1>
     <input type="text" id="textInput" placeholder="輸入文字..." />
@@ -136,6 +198,7 @@ button:hover{transform:scale(1.05);}
     </div>
   </div>
 
+  <!-- 解碼區 -->
   <div class="card">
     <h2>🔍 解碼區</h2>
     <textarea id="decodeInput" rows="4" placeholder="輸入摩斯碼（例如：.... . .-.. .-.. ---）"></textarea>
@@ -147,6 +210,7 @@ button:hover{transform:scale(1.05);}
     </div>
   </div>
 
+  <!-- 背景上傳區 -->
   <div class="card upload-card">
     <h2>🖼 上傳背景</h2>
     <input type="file" id="bgInput" accept="image/*" />
@@ -155,49 +219,42 @@ button:hover{transform:scale(1.05);}
 
 </div>
 
-<section style="max-width:900px;text-align:center;margin:50px 20px;">
-  <h2>💡 關於 Morse Beat</h2>
-  <p>這是一個結合摩斯碼與音樂節奏的創意工具。輸入文字即可轉換成摩斯節拍，還能即時播放聲音、上傳個人背景，打造專屬風格的摩斯節奏頁面。</p>
-  <br>
-  <h2>✨ 特色功能</h2>
-  <ul style="list-style:none;line-height:1.8;">
-    <li>🔸 文字轉摩斯碼並可播放聲音節奏</li>
-    <li>🔸 摩斯碼解碼成原文</li>
-    <li>🔸 支援上傳背景圖個人化頁面</li>
-    <li>🔸 分享密碼模式（解碼才可顯示訊息）</li>
-  </ul>
-</section>
+<div id="toast" class="toast">✅ 已複製！</div>
 
-<div class="ad-bottom"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXX" data-ad-slot="2222222222" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
-
-<div class="ad-popup" id="popupAd">
-  <p>📢 手機專屬廣告位</p>
-  <button onclick="document.getElementById('popupAd').classList.remove('show')">關閉</button>
-</div>
-
-<footer>© 2025 Morse Beat | 本網站使用 Google AdSense 提供廣告服務</footer>
-<div id="toast" class="toast"></div>
+<footer>© 2025 MorseBeat</footer>
 
 <script>
-// ===== Morse 邏輯 =====
-const MORSE={A:".-",B:"-...",C:"-.-.",D:"-..",E:".",F:"..-.",G:"--.",H:"....",
-I:"..",J:".---",K:"-.-",L:".-..",M:"--",N:"-.",O:"---",
-P:".--.",Q:"--.-",R:".-.",S:"...",T:"-",U:"..-",V:"...-",W:".--",
-X:"-..-",Y:"-.--",Z:"--..",
-"1":".----","2":"..---","3":"...--","4":"....-","5":".....",
-"6":"-....","7":"--...",8:"---..","9":"----.","0":"-----"," ":"/"};
-const REVERSE=Object.fromEntries(Object.entries(MORSE).map(([k,v])=>[v,k]));
-function textToMorse(t){return t.toUpperCase().split("").map(c=>MORSE[c]||"").join(" ");}
+// ===== 摩斯碼邏輯 =====
+const textInput = document.getElementById("textInput");
+const morseOutput = document.getElementById("morseOutput");
+const convertBtn = document.getElementById("convertBtn");
+const playBtn = document.getElementById("playBtn");
+const stopBtn = document.getElementById("stopBtn");
+const decodeInput = document.getElementById("decodeInput");
+const decodeOutput = document.getElementById("decodeOutput");
+const decodeBtn = document.getElementById("decodeBtn");
+
+const MORSE = {
+  A: ".-", B: "-...", C: "-.-.", D: "-..", E: ".", F: "..-.", G: "--.", H: "....",
+  I: "..", J: ".---", K: "-.-", L: ".-..", M: "--", N: "-.", O: "---",
+  P: ".--.", Q: "--.-", R: ".-.", S: "...", T: "-", U: "..-", V: "...-", W: ".--",
+  X: "-..-", Y: "-.--", Z: "--..",
+  "1": ".----", "2": "..---", "3": "...--", "4": "....-", "5": ".....",
+  "6": "-....", "7": "--...", "8": "---..", "9": "----.", "0": "-----", " ": "/"
+};
+const REVERSE = Object.fromEntries(Object.entries(MORSE).map(([k,v]) => [v,k]));
+
+let audioCtx, playing=false;
+function textToMorse(t){return t.toUpperCase().split("").map(c=>MORSE[c]||"").join(" "); }
 function morseToText(m){return m.split(" / ").map(w=>w.split(" ").map(s=>REVERSE[s]||"").join("")).join(" ");}
 
-document.getElementById("convertBtn").onclick = ()=>document.getElementById("morseOutput").textContent = textToMorse(document.getElementById("textInput").value.trim()) || "（無效輸入）";
-document.getElementById("decodeBtn").onclick = ()=>document.getElementById("decodeOutput").textContent = morseToText(document.getElementById("decodeInput").value.trim()) || "（無效摩斯碼）";
+convertBtn.onclick = ()=>{ morseOutput.textContent = textToMorse(textInput.value.trim()) || "（無效輸入）"; };
+decodeBtn.onclick = ()=>{ decodeOutput.textContent = morseToText(decodeInput.value.trim()) || "（無效摩斯碼）"; };
 
-// ===== 播放 =====
-let audioCtx, playing=false;
 function playMorse(m){
   if(!m||playing)return;
-  playing=true; audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  playing=true;
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
   const unit=0.15; let time=audioCtx.currentTime;
   m.split("").forEach(s=>{
     if(s==="."){beep(time,unit);flash();time+=unit*2;}
@@ -213,48 +270,50 @@ function beep(start,d){
   o.connect(g); g.connect(audioCtx.destination);
   o.start(start); o.stop(start+d);
 }
-function flash(){const o=document.getElementById("morseOutput"); o.classList.add("flash"); setTimeout(()=>o.classList.remove("flash"),100);}
-document.getElementById("playBtn").onclick=()=>{const m=document.getElementById("morseOutput").textContent.trim(); if(m&&m!=="等待輸入...") playMorse(m);}
-document.getElementById("stopBtn").onclick=()=>{if(audioCtx)audioCtx.close(); playing=false;};
+function flash(){
+  morseOutput.classList.add("flash");
+  setTimeout(()=>morseOutput.classList.remove("flash"),100);
+}
+playBtn.onclick=()=>{const m=morseOutput.textContent.trim(); if(m&&m!=="等待輸入...") playMorse(m);};
+stopBtn.onclick=()=>{if(audioCtx)audioCtx.close(); playing=false;};
 
 // ===== 複製與分享 =====
-function showToast(msg){const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1500);}
-function copyText(id){const t=document.getElementById(id).textContent.trim(); if(!t||t.startsWith("等待"))return; navigator.clipboard.writeText(t); showToast("✅ 已複製！");}
-
-// 分享 + 短網址
-async function shareText(id){
+function copyText(id){
   const t=document.getElementById(id).textContent.trim();
   if(!t||t.startsWith("等待"))return;
-  const longUrl=location.origin+location.pathname+"?share="+encodeURIComponent(t);
-  let shortUrl=longUrl;
-  try{
-    const res=await fetch("https://api.tinyurl.com/create",{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer 你的APIKEY"},body:JSON.stringify({url:longUrl})});
-    const data=await res.json(); if(data.data&&data.data.tiny_url) shortUrl=data.data.tiny_url;
-  }catch(e){console.warn("短網址生成失敗");}
-  if(navigator.share){navigator.share({title:"Morse Beat",text:t,url:shortUrl}); showToast("🔗 分享選單已開啟"); return;}
-  const shareLinks={LINE:`https://line.me/R/msg/text/?${encodeURIComponent(t+"\n"+shortUrl)}`,Telegram:`https://t.me/share/url?url=${encodeURIComponent(shortUrl)}&text=${encodeURIComponent(t)}`,Facebook:`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shortUrl)}`};
-  const choice=prompt("選擇分享平台：LINE / Telegram / Facebook\n或取消複製短網址","LINE");
-  if(choice){const key=choice.trim().toUpperCase(); if(shareLinks[key]){window.open(shareLinks[key],"_blank"); showToast(`🔗 已開啟 ${key} 分享`); return; }}
-  navigator.clipboard.writeText(shortUrl); showToast("🔗 短網址已複製！");
+  navigator.clipboard.writeText(t);
+  showToast("✅ 已複製！");
+}
+function shareText(id){
+  const t=document.getElementById(id).textContent.trim();
+  if(!t||t.startsWith("等待"))return;
+  const url=location.origin+location.pathname+"?share="+encodeURIComponent(t);
+  if(navigator.share) navigator.share({title:"Morse Beat",text:t,url});
+  else { prompt("複製分享連結：",url); showToast("🔗 分享連結已複製！"); }
+}
+function showToast(msg){
+  const toast=document.getElementById("toast");
+  toast.textContent=msg; toast.classList.add("show");
+  setTimeout(()=>toast.classList.remove("show"),1500);
 }
 
-// ===== 背景上傳預覽 =====
-document.getElementById("bgInput").addEventListener("change",e=>{
-  const f=e.target.files[0]; if(!f)return;
-  const r=new FileReader();
-  r.onload=ev=>{const i=document.getElementById("preview"); i.src=ev.target.result; i.style.display="block";}
-  r.readAsDataURL(f);
+// ===== 背景上傳 =====
+document.getElementById("bgInput").addEventListener("change", e=>{
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload = ev => {
+    document.body.style.backgroundImage = `url(${ev.target.result})`;
+  };
+  reader.readAsDataURL(file);
 });
 
-// ===== 手機彈窗廣告 =====
-setTimeout(()=>document.getElementById('popupAd').classList.add('show'),4000);
-
-// ===== URL 參數解碼 =====
+// ===== URL 分享自動解碼 =====
 const params=new URLSearchParams(window.location.search);
 if(params.has("share")){
-  const s=params.get("share");
-  document.getElementById("decodeInput").value=s;
-  document.getElementById("decodeOutput").textContent=morseToText(s)||"（無效摩斯碼）";
+  const shared=params.get("share");
+  decodeInput.value=shared;
+  decodeOutput.textContent=morseToText(shared) || "（無效摩斯碼）";
 }
 </script>
 </body>
