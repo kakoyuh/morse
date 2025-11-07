@@ -159,8 +159,20 @@ footer{font-size:13px;opacity:0.6;margin:40px 0;}
 </div>
 
 <!-- 左右廣告 -->
-<div class="ad-left">左側廣告位</div>
-<div class="ad-right">右側廣告位</div>
+<div class="ad-left">
+  <ins class="adsbygoogle"
+    style="display:inline-block;width:120px;height:300px"
+    data-ad-client="ca-pub-6741848109234929"
+    data-ad-slot="3333333333"></ins>
+</div>
+
+<!-- 右側廣告 -->
+<div class="ad-right">
+  <ins class="adsbygoogle"
+    style="display:inline-block;width:120px;height:300px"
+    data-ad-client="ca-pub-6741848109234929"
+    data-ad-slot="4444444444"></ins>
+</div>
 
 <div class="container">
 
@@ -345,6 +357,9 @@ if(params.has("share")){
   modalCloseBtn.onclick=()=>{ modal.style.display="none"; };
   window.onclick=(e)=>{ if(e.target==modal) modal.style.display="none"; };
 }
+/*adsence reset*/
+(adsbygoogle = window.adsbygoogle || []).push({});
+
 </script>
 </body>
 </html>
