@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 
 <!-- AdSense -->
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXX"
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6741848109234929"
   crossorigin="anonymous"></script>
 
 <style>
@@ -107,10 +107,42 @@ button:hover{transform:scale(1.05);}
 }
 .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
 .upload-card img{width:100%; margin-top:10px; border-radius:12px; display:none;}
-#sharedDecodeArea{display:none;margin-bottom:15px;}
 @media(max-width:767px){.ad-left,.ad-right{display:none;}.card{width:90%;}.upload-card{order:-1;}}
 @media(min-width:768px){.upload-card{order:3;}}
 footer{font-size:13px;opacity:0.6;margin:40px 0;}
+
+/* 分享彈窗 */
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 9999; 
+  left: 0; top: 0; 
+  width: 100%; height: 100%; 
+  overflow: auto; 
+  background-color: rgba(0,0,0,0.6);
+}
+.modal-content {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  margin: 15% auto; 
+  padding: 20px; 
+  border-radius: 15px;
+  width: 90%; max-width: 400px; 
+  text-align: center; 
+  color: #fff;
+}
+.modal-content button {
+  margin: 10px 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+#modalDecodeBtn { background: linear-gradient(135deg,#ff9500,#ffaa33); color:#000;}
+#modalDecodeBtn:hover { background: linear-gradient(135deg,#cc7a00,#ff9500);}
+#modalCloseBtn { background: linear-gradient(135deg,#aaa,#888); color:#000;}
+#modalCloseBtn:hover { background: linear-gradient(135deg,#888,#555);}
 </style>
 </head>
 
@@ -120,7 +152,7 @@ footer{font-size:13px;opacity:0.6;margin:40px 0;}
 <div class="ad-top">
   <ins class="adsbygoogle"
     style="display:block"
-    data-ad-client="ca-pub-XXXXXXX"
+    data-ad-client="ca-pub-6741848109234929"
     data-ad-slot="1111111111"
     data-ad-format="auto"
     data-full-width-responsive="true"></ins>
@@ -149,9 +181,6 @@ footer{font-size:13px;opacity:0.6;margin:40px 0;}
   <!-- 解碼區 -->
   <div class="card">
     <h2>🔍 解碼區</h2>
-    <div id="sharedDecodeArea">
-      <button id="showSharedBtn">🔓 解碼訊息</button>
-    </div>
     <textarea id="decodeInput" rows="4" placeholder="輸入摩斯碼（例如：.... . .-.. .-.. ---）"></textarea>
     <div class="output" id="decodeOutput">等待解碼...</div>
     <div>
@@ -187,7 +216,7 @@ footer{font-size:13px;opacity:0.6;margin:40px 0;}
 <div class="ad-bottom">
   <ins class="adsbygoogle"
     style="display:block"
-    data-ad-client="ca-pub-XXXXXXX"
+    data-ad-client="ca-pub-6741848109234929"
     data-ad-slot="2222222222"
     data-ad-format="auto"
     data-full-width-responsive="true"></ins>
@@ -195,6 +224,16 @@ footer{font-size:13px;opacity:0.6;margin:40px 0;}
 
 <footer>© 2025 Morse Beat | 本網站使用 Google AdSense 提供廣告服務</footer>
 <div id="toast" class="toast">✅ 已複製！</div>
+
+<!-- 分享彈窗 -->
+<div id="shareModal" class="modal">
+  <div class="modal-content">
+    <h2>📩 你收到了一則訊息！</h2>
+    <p id="modalMessage">（摩斯碼訊息）</p>
+    <button id="modalDecodeBtn">🔓 解碼訊息</button>
+    <button id="modalCloseBtn">❌ 關閉</button>
+  </div>
+</div>
 
 <script>
 // ===== 摩斯碼邏輯 =====
@@ -217,11 +256,9 @@ decodeBtn=document.getElementById("decodeBtn");
 
 let audioCtx,playing=false;
 function textToMorse(t){return t.toUpperCase().split("").map(c=>MORSE[c]||"").join(" ");}
-// ✅ 修正解碼 BUG
+
 function morseToText(m){
-  return m.trim().split(/\s*\/\s*|\s{3,}/).map(
-    w => w.trim().split(/\s+/).map(s => REVERSE[s]||"").join("")
-  ).join(" ");
+  return m.split(" / ").map(w=>w.split(" ").map(s=>REVERSE[s]||"").join("")).join(" ");
 }
 
 convertBtn.onclick=()=>{morseOutput.textContent=textToMorse(textInput.value.trim())||"（無效輸入）";};
@@ -248,8 +285,8 @@ function flash(){morseOutput.classList.add("flash");setTimeout(()=>morseOutput.c
 playBtn.onclick=()=>{const m=morseOutput.textContent.trim();if(m&&m!=="等待輸入...")playMorse(m);};
 stopBtn.onclick=()=>{if(audioCtx)audioCtx.close();playing=false;};
 
-// ===== 複製與分享 =====
-function copyText(id){
+// ===== 複製與分享（直接傳摩斯碼網址） =====
+function copyText(id) {
   const t=document.getElementById(id).textContent.trim();
   if(!t||t.startsWith("等待"))return;
   navigator.clipboard.writeText(t);
@@ -259,16 +296,10 @@ function copyText(id){
 function shareText(id){
   const t=document.getElementById(id).textContent.trim();
   if(!t||t.startsWith("等待"))return;
-
   const url=location.origin+location.pathname+"?share="+encodeURIComponent(t);
-
   if(navigator.share){
-    navigator.share({
-      title:"Morse Beat",
-      text:"🔒 你收到一段摩斯密碼",
-      url
-    });
-  }else{
+    navigator.share({title:"Morse Beat",text:"🔒 你收到一段摩斯密碼",url});
+  } else {
     prompt("複製這個驚喜連結：",url);
     showToast("🔗 已生成驚喜連結！");
   }
@@ -294,23 +325,25 @@ document.getElementById("bgInput").addEventListener("change",e=>{
   reader.readAsDataURL(file);
 });
 
-// ===== URL 參數自動解碼（分享模式） =====
+// ===== URL 參數自動解碼（分享模式彈窗） =====
 const params=new URLSearchParams(window.location.search);
 if(params.has("share")){
   const shared=params.get("share");
-  decodeInput.value=shared;
-  decodeOutput.textContent="（按下解碼鈕查看訊息）";
+  const modal=document.getElementById("shareModal");
+  const modalMsg=document.getElementById("modalMessage");
+  const modalDecodeBtn=document.getElementById("modalDecodeBtn");
+  const modalCloseBtn=document.getElementById("modalCloseBtn");
 
-  const sharedArea=document.getElementById("sharedDecodeArea");
-  sharedArea.style.display="block";
+  modalMsg.textContent="（你收到一段摩斯碼訊息）";
+  modal.style.display="block";
 
-  document.getElementById("showSharedBtn").onclick=()=>{
-    decodeOutput.textContent=morseToText(shared)||"（無效摩斯碼）";
-    showToast("📩 已解碼！");
-    sharedArea.style.display="none";
+  modalDecodeBtn.onclick=()=>{
+    modalMsg.textContent=morseToText(shared)||"（無效摩斯碼）";
+    modalDecodeBtn.style.display="none";
   };
 
-  showToast("📩 你收到了一段摩斯密碼！");
+  modalCloseBtn.onclick=()=>{ modal.style.display="none"; };
+  window.onclick=(e)=>{ if(e.target==modal) modal.style.display="none"; };
 }
 </script>
 </body>
