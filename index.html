@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Morse Beat：結合摩斯碼與音樂節奏的創意工具。輸入文字即可轉換成摩斯節拍，並可分享為驚喜連結（需按解碼才能顯示內容）。">
-<meta name="keywords" content="摩斯碼,Morse code,摩斯節奏,密碼工具,線上摩斯碼轉換器,訊號音樂">
+<meta name="keywords" content="摩斯碼,Morse code,摩斯節奏,密碼工具,線上摩斯碼轉換器,訊號音樂,業餘無線電,輔助溝通">
 <title>Morse Beat</title>
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6741848109234929" crossorigin="anonymous"></script>
@@ -14,6 +14,14 @@
 *{box-sizing:border-box;font-family:"Poppins",sans-serif;margin:0;padding:0}
 html,body{height:100%}
 body{background:radial-gradient(circle at top,#0b0b0b,#050505);color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding-top:80px;overflow-x:hidden}
+.site-title {
+    font-size: 3.5em; /* 更大的字體 */
+    margin-bottom: 30px; /* 與下方內容的間距 */
+    text-align: center;
+    padding-top: 20px; /* 距離頂部的空間 */
+    z-index: 3; /* 確保在最上層 */
+    position: relative; /* 確保 z-index 生效 */
+}
 
 /* 廣告 */
 .ad-top,.ad-bottom{width:100%;text-align:center;margin:10px 0}
@@ -81,6 +89,7 @@ button:hover{transform:scale(1.05)}
 /* 內容區 */
 .content{max-width:1000px;padding:20px;margin-top:10px;color:#dceefc;line-height:1.8;z-index:2}
 .content h3{color:#bff; margin-top:18px}
+.content h4{color:#bfd; margin-top:12px; margin-bottom: 5px; font-weight: 500;} /* 新增 H4 樣式 */
 .morse-table{width:100%;border-collapse:collapse;margin-top:12px}
 .morse-table td,.morse-table th{border:1px solid rgba(255,255,255,0.06);padding:8px;text-align:center;font-size:14px;color:#dceefc}
 
@@ -118,78 +127,103 @@ footer a:hover{
 
 /* 手機版單欄 */
 @media(max-width:767px){
-  .ad-left,.ad-right{display:none}
-  .card{width:90%}
+    .ad-left,.ad-right{display:none}
+    .card{width:90%}
 }
 </style>
 </head>
 <body>
 
+<h1 class="site-title">MorseOnline</h1>
+
 <div class="ad-top">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-6741848109234929"
-       data-ad-slot="1111111111"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-6741848109234929"
+        data-ad-slot="1111111111"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
 <div class="ad-left">左側廣告位</div>
 <div class="ad-right">右側廣告位</div>
 
 <div class="content">
-  <h2>關於 Morse Beat</h2>
-  <p>Morse Beat 是結合摩斯碼與音樂節奏的創意工具。可將文字轉換為摩斯碼節奏,播放音訊,並生成驚喜連結與朋友分享。</p>
-  <h3>摩斯電碼的起源與發展</h3>
-  <p>摩斯電碼由 Samuel Morse 與 Alfred Vail 在 1830 年代發展,用於電報系統。短脈衝與長脈衝分別代表字母或數字,是跨時代的重要通訊方式。</p>
-  <h3>摩斯與音樂：節奏化的訊號</h3>
-  <p>摩斯碼本質為節奏語言：短音（·）等同短拍,長音（−）等同長拍,字母間停頓像小節分隔。可映射至鼓點或合成器,創造音樂節奏的訊號藝術。</p>
-  <h3>網站功能介紹</h3>
-  <ul>
-    <li>文字轉摩斯,播放節奏音訊</li>
-    <li>摩斯碼複製與生成驚喜連結分享</li>
-    <li>即時打摩斯功能（支援鍵盤與即時音效）</li>
-    <li>解碼區,輸入摩斯碼獲得文字結果</li>
-    <li>歷史與學習區,介紹摩斯碼起源與應用</li>
-  </ul>
+    <h2>關於 Morse Beat：訊號、節奏與密碼</h2>
+    <p>Morse Beat 是一個創新的工具，旨在將古老的摩斯電碼轉化為現代的互動體驗。我們的目標是將這古老的通訊方式，轉化為現代、有趣且具互動性的數位體驗。在這裡，您可以輕鬆地將文字轉化為節奏，練習即時發報，並探索摩斯碼在歷史和現代領域的應用，真正感受摩斯碼作為**「節奏化語言」**的獨特魅力。</p>
+    
+    <hr style="border-color: rgba(255, 255, 255, 0.1); margin: 20px 0;">
+    
+    <h3>📜 學習與歷史：電報時代的開端</h3>
+    
+    <h4>摩斯電碼的起源與發展</h4>
+    <p>摩斯電碼由藝術家兼發明家 Samuel Morse 與 Alfred Vail 在 1830 年代發展，目的是解決當時長距離通訊的巨大瓶頸。在電報發明之前，資訊傳遞的速度極為緩慢。摩斯碼的出現，使得資訊能夠以前所未有的速度跨越數百英里。這套系統利用電流的**「開」與「關」**來產生短脈衝（點）與長脈衝（劃），通過特殊的編碼規則代表了字母和數字，從而催生了現代電訊學。</p>
+    <p>西元 1844 年 5 月 24 日，摩斯在美國國會大廈發出了歷史上第一封官方電報：「**上帝創造了何等奇蹟 (What hath God wrought)**」，標誌著資訊時代的開端。摩斯電碼憑藉其高效和穩定性，迅速成為全球鐵路、航運和軍事通訊的標準，確立了其在通訊史上的核心地位。</p>
+    
+    <h4>摩斯與音樂：節奏化的訊號本質</h4>
+    <p>摩斯碼的本質是一種優雅的**時間和節奏語言**，這也是 Morse Beat 網站名稱的靈感來源。其核心在於嚴格且精確的時長比例：</p>
+    <ul>
+        <li>**短點 (·)：** 視為一個時間單位。</li>
+        <li>**長劃 (—)：** 持續三個時間單位。</li>
+        <li>**點與劃之間的間隔：** 是一個時間單位。</li>
+        <li>**字母之間的間隔 (空格)：** 是三個時間單位。</li>
+        <li>**單字之間的間隔 (斜線 /)：** 是七個時間單位。</li>
+    </ul>
+    <p>這種 1:3:7 的精確比例，使得摩斯碼的發送與接收像極了音樂的節奏。短音（點）等同於短拍，長音（劃）等同於長拍，字母和單字之間的停頓則像是樂譜中的休止符或小節分隔。因此，熟練的摩斯碼操作員通常不是在「數點數劃」，而是在「聆聽節奏」——這使得摩斯碼的練習也被稱為**「摩斯節拍」**，它可以被完美地映射至鼓點或電子訊號音，創造出極具特色的訊號藝術。</p>
+
+    <h3>📡 摩斯碼的永恆價值與現代應用</h3>
+    <p>儘管我們現在擁有高速網路和衛星通訊，但摩斯電碼的簡單、可靠和抗干擾的特性使其在極端環境下仍然不可或缺，至今仍未過時。它只需要最簡陋的設備和極小的頻寬，就能在強烈雜訊或低功率條件下傳遞訊息。</p>
+    <ul>
+        <li>**業餘無線電 (Ham Radio)：** 摩斯碼（CW 模式）至今仍是許多無線電愛好者（通常稱為火腿族）進行長距離、低功率通訊的首選方式。熟練的操作員可以在雜訊中識別出微弱的訊號，這是語音通訊難以達成的。</li>
+        <li>**輔助技術與醫療：** 對於因疾病或創傷導致嚴重肢體障礙的人士，摩斯碼是寶貴的輔助溝通工具。他們可以僅通過眨眼、舌頭移動或手指的輕微按壓來發出點和劃，從而實現與外界的有效溝通和電腦輸入，極大地提升生活品質。</li>
+        <li>**緊急訊號：** 在航海、航空或野外求生中，無論是通過閃光燈、霧笛還是手電筒，摩斯碼的 **SOS（...---...）** 依然是國際公認的通用緊急訊號，因為它簡單、醒目且難以誤解。</li>
+    </ul>
+
+    <h3>💡 網站功能概覽</h3>
+    <ul>
+        <li>**文字轉摩斯與播放：** 快速將您輸入的文字轉換成標準摩斯碼，並透過內建的音訊產生器播放節奏音訊，幫助您即時感受和學習摩斯碼的節奏。</li>
+        <li>**即時打摩斯 (Live Beat)：** 這是本站的核心互動功能。只需點擊按鈕或按下空白鍵，系統即時判斷您的點擊時長是點（·）或劃（—），並同步顯示**即時解碼**結果，以及通過進度條視覺化顯示字母和單字間的停頓時間。</li>
+        <li>**驚喜連結分享：** 您可以將摩斯碼或解碼後的文字加密成一個獨特的 URL。當朋友點擊連結時，他們需要手動解碼或按下按鈕，才能解鎖您的隱藏訊息，創造出趣味的密碼溝通體驗。</li>
+        <li>**解碼與參考：** 提供高度容錯的摩斯碼解碼輸入區，並附帶完整的摩斯碼參考表，便於快速查詢和驗證。</li>
+    </ul>
 </div>
 
 <div class="container">
-    <div class="card">
-    <h1>🎵 Morse Beat</h1>
-    <input type="text" id="textInput" placeholder="輸入文字..." />
-    <div class="output" id="morseOutput">等待輸入...</div>
-    <div>
-      <button id="convertBtn">轉換</button>
-      <button id="playBtn">播放節奏</button>
-      <button id="stopBtn">停止</button>
-      <button class="copy-btn" onclick="copyText('morseOutput')">複製摩斯碼</button>
-      <button class="share-btn" onclick="shareUrl('morseOutput')">分享摩斯碼（驚喜連結）</button>
-    </div>
-    <p style="font-size:12px;margin-top:10px;">**輸出使用標準空格分隔字母**</p>
-  </div>
+    <div class="card">
+    <h1>🎵 Morse Beat</h1>
+    <input type="text" id="textInput" placeholder="輸入文字..." />
+    <div class="output" id="morseOutput">等待輸入...</div>
+    <div>
+        <button id="convertBtn">轉換</button>
+        <button id="playBtn">播放節奏</button>
+        <button id="stopBtn">停止</button>
+        <button class="copy-btn" onclick="copyText('morseOutput')">複製摩斯碼</button>
+        <button class="share-btn" onclick="shareUrl('morseOutput')">分享摩斯碼（驚喜連結）</button>
+    </div>
+    <p style="font-size:12px;margin-top:10px;">**輸出使用標準空格分隔字母**</p>
+    </div>
 
-    <div class="card">
-    <h2>🔍 解碼區</h2>
-    <textarea id="decodeInput" rows="4" placeholder="輸入摩斯碼（例如：.... . .-.. .-.. --- / .-- --- .-. .-.. -..）"></textarea>
-    <div class="output" id="decodeOutput">等待解碼...</div>
-    <div>
-      <button id="decodeBtn">解碼</button>
-      <button class="copy-btn" onclick="copyText('decodeOutput')">複製解碼文字</button>
-      <button class="share-btn" onclick="shareUrl('decodeOutput', true)">分享文字（驚喜連結）</button>
-      <p style="font-size:12px;margin-top:10px;">**注意：字母間用空格分隔，單字間用 `/` 分隔**</p>
-    </div>
-  </div>
+    <div class="card">
+    <h2>🔍 解碼區</h2>
+    <textarea id="decodeInput" rows="4" placeholder="輸入摩斯碼（例如：.... . .-.. .-.. --- / .-- --- .-. .-.. -..）"></textarea>
+    <div class="output" id="decodeOutput">等待解碼...</div>
+    <div>
+        <button id="decodeBtn">解碼</button>
+        <button class="copy-btn" onclick="copyText('decodeOutput')">複製解碼文字</button>
+        <button class="share-btn" onclick="shareUrl('decodeOutput', true)">分享文字（驚喜連結）</button>
+        <p style="font-size:12px;margin-top:10px;">**注意：字母間用空格分隔，單字間用 `/` 分隔**</p>
+    </div>
+    </div>
 
-    <div class="card">
-    <h2>⚡ 打 Morse Beat</h2>
+    <div class="card">
+    <h2>⚡ 打 Morse Beat</h2>
     <p>點擊按鈕或按 **[空白鍵]**</p>
-    <p>點一下 → 短點「·」 | 長按 >0.5秒 → 長點「−」</p>
-    <p>停頓 **0.7 秒** → 字母分隔 (空格)</p>
-    <p>停頓 **2.1 秒** → 單字分隔 (斜線 ` / `)</p>
-    <button id="beatBtn">🎵 打摩斯</button>
-    <div class="output" id="liveMorse">目前摩斯碼： </div>
+    <p>點一下 → 短點「·」 | 長按 >0.5秒 → 長點「−」</p>
+    <p>停頓 0.7 秒→ 字母分隔 (空格)</p>
+    <p>停頓 2.1 秒 → 單字分隔 (斜線 ` / `)</p>
+    <button id="beatBtn">🎵 打摩斯</button>
+    <div class="output" id="liveMorse">目前摩斯碼： </div>
     
     <div class="output" id="liveDecode" style="min-height: 25px; color: #00ffaa; font-size: 15px; padding: 8px;">即時解碼：</div> 
 
@@ -197,47 +231,47 @@ footer a:hover{
         <div id="timerProgressBar"></div>
     </div>
 
-    <button onclick="clearLiveMorse()">清除</button>
+    <button onclick="clearLiveMorse()">清除</button>
     <button class="copy-btn" onclick="copyLiveMorse()">複製</button>
-  </div>
+    </div>
 </div>
 
 <div class="card" id="morse-table-card">
-  <h2>摩斯碼參考表 (A–Z, 0–9)</h2>
-  <table class="morse-table">
-    <thead><tr><th>符號</th><th>摩斯</th><th>符號</th><th>摩斯</th></tr></thead>
-    <tbody>
-      <tr><td>A</td><td>.-</td><td>N</td><td>-.</td></tr>
-      <tr><td>B</td><td>-...</td><td>O</td><td>---</td></tr>
-      <tr><td>C</td><td>-.-.</td><td>P</td><td>.--.</td></tr>
-      <tr><td>D</td><td>-..</td><td>Q</td><td>--.-</td></tr>
-      <tr><td>E</td><td>.</td><td>R</td><td>.-.</td></tr>
-      <tr><td>F</td><td>..-.</td><td>S</td><td>...</td></tr>
-      <tr><td>G</td><td>--.</td><td>T</td><td>-</td></tr>
-      <tr><td>H</td><td>....</td><td>U</td><td>..-</td></tr>
-      <tr><td>I</td><td>..</td><td>V</td><td>...-</td></tr>
-      <tr><td>J</td><td>.---</td><td>W</td><td>.--</td></tr>
-      <tr><td>K</td><td>-.-</td><td>X</td><td>-..-</td></tr>
-      <tr><td>L</td><td>.-..</td><td>Y</td><td>-.--</td></tr>
-      <tr><td>M</td><td>--</td><td>Z</td><td>--..</td></tr>
-      <tr><td>0</td><td>-----</td><td>5</td><td>.....</td></tr>
-      <tr><td>1</td><td>.----</td><td>6</td><td>-....</td></tr>
-      <tr><td>2</td><td>..---</td><td>7</td><td>--...</td></tr>
-      <tr><td>3</td><td>...--</td><td>8</td><td>---..</td></tr>
-      <tr><td>4</td><td>....-</td><td>9</td><td>----.</td></tr>
-    </tbody>
-  </table>
+    <h2>摩斯碼參考表 (A–Z, 0–9)</h2>
+    <table class="morse-table">
+    <thead><tr><th>符號</th><th>摩斯</th><th>符號</th><th>摩斯</th></tr></thead>
+    <tbody>
+        <tr><td>A</td><td>.-</td><td>N</td><td>-.</td></tr>
+        <tr><td>B</td><td>-...</td><td>O</td><td>---</td></tr>
+        <tr><td>C</td><td>-.-.</td><td>P</td><td>.--.</td></tr>
+        <tr><td>D</td><td>-..</td><td>Q</td><td>--.-</td></tr>
+        <tr><td>E</td><td>.</td><td>R</td><td>.-.</td></tr>
+        <tr><td>F</td><td>..-.</td><td>S</td><td>...</td></tr>
+        <tr><td>G</td><td>--.</td><td>T</td><td>-</td></tr>
+        <tr><td>H</td><td>....</td><td>U</td><td>..-</td></tr>
+        <tr><td>I</td><td>..</td><td>V</td><td>...-</td></tr>
+        <tr><td>J</td><td>.---</td><td>W</td><td>.--</td></tr>
+        <tr><td>K</td><td>-.-</td><td>X</td><td>-..-</td></tr>
+        <tr><td>L</td><td>.-..</td><td>Y</td><td>-.--</td></tr>
+        <tr><td>M</td><td>--</td><td>Z</td><td>--..</td></tr>
+        <tr><td>0</td><td>-----</td><td>5</td><td>.....</td></tr>
+        <tr><td>1</td><td>.----</td><td>6</td><td>-....</td></tr>
+        <tr><td>2</td><td>..---</td><td>7</td><td>--...</td></tr>
+        <tr><td>3</td><td>...--</td><td>8</td><td>---..</td></tr>
+        <tr><td>4</td><td>....-</td><td>9</td><td>----.</td></tr>
+    </tbody>
+    </table>
 </div>
 
 
 <div class="ad-bottom">
-  <ins class="adsbygoogle"
-       style="display:block"
-       data-ad-client="ca-pub-6741848109234929"
-       data-ad-slot="2222222222"
-       data-ad-format="auto"
-       data-full-width-responsive="true"></ins>
-  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <ins class="adsbygoogle"
+        style="display:block"
+        data-ad-client="ca-pub-6741848109234929"
+        data-ad-slot="2222222222"
+        data-ad-format="auto"
+        data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
 <footer>© 2025 Morse Beat ｜ <a href="/privacy">隱私政策</a> ｜ <a href="/contact">聯絡我們</a><br>本網站使用 Google AdSense 提供廣告服務</footer>
@@ -260,9 +294,9 @@ const decodeInput=document.getElementById("decodeInput");
 const decodeOutput=document.getElementById("decodeOutput");
 const decodeBtn=document.getElementById("decodeBtn");
 const liveMorse=document.getElementById("liveMorse");
-const liveDecode = document.getElementById("liveDecode"); // NEW
+const liveDecode = document.getElementById("liveDecode"); 
 const beatBtn=document.getElementById("beatBtn");
-const timerProgressBar = document.getElementById("timerProgressBar"); // NEW
+const timerProgressBar = document.getElementById("timerProgressBar"); 
 
 // 音訊上下文
 let audioCtx;
@@ -277,8 +311,8 @@ document.addEventListener('keydown', initAudio, {once: true});
 let playing=false;
 
 // 摩斯按鈕輸入常數與計時器 (維持優化後的時間)
-const LIVE_SEPARATOR_TIMEOUT = 700; // 0.7秒: 字母間隔 (space)
-const WORD_SEPARATOR_TIMEOUT = 2100; // 2.1秒: 單詞間隔 (slash)
+const LIVE_SEPARATOR_TIMEOUT = 1000; // 0.7秒: 字母間隔 (space)
+const WORD_SEPARATOR_TIMEOUT = 2200; // 2.1秒: 單詞間隔 (slash)
 let letterSeparatorTimer; 
 let wordSeparatorTimer;   
 
@@ -425,7 +459,7 @@ function copyLiveMorse() {
     showToast("✅ 已複製！");
 }
 
-function realtimeDecode() { // NEW
+function realtimeDecode() { 
     const decoded = morseToText(liveStr.trim());
     liveDecode.textContent = "即時解碼：" + (decoded || "...");
 }
