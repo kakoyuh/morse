@@ -1,0 +1,194 @@
+:root {
+    --gold: #D4AF37;
+    --glass: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.15);
+}
+
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--space-black, #050505);
+    color: white;
+    font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+    overflow-x: hidden;
+    display: block; /* 🌟 加上這行，強制所有大區塊乖乖上下排列 */
+}
+
+.space-bg {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, #050505 0%, #1a1a1a 50%, #2c5364 100%);
+    z-index: -1;
+}
+
+.glass-card { background: var(--glass); backdrop-filter: blur(20px); border: 1px solid var(--border); border-radius: 30px; }
+
+.fixed-nav { position: fixed; top: 0; width: 100%; z-index: 100; background: rgba(0,0,0,0.3); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+.nav-content { max-width: 1100px; margin: 0 auto; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+
+/* 首頁區塊 */
+.hero { 
+    min-height: 100vh; 
+    width: 100%; /* 🌟 加上這行 */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+/* 下方介紹區塊 */
+
+.central-ui { padding: 40px; text-align: center; width: 350px; }
+.glitter-text { font-size: 3.5rem; background: linear-gradient(to bottom, #fff, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; }
+
+.lv-group { display: flex; gap: 8px; justify-content: center; margin: 15px 0; }
+.lv-btn { width: 38px; height: 38px; background: none; border: 1px solid var(--gold); color: var(--gold); border-radius: 8px; cursor: pointer; }
+.lv-btn.active { background: var(--gold); color: black; box-shadow: 0 0 15px var(--gold); }
+
+.btn-start { margin-top: 20px; padding: 12px 50px; font-size: 1.1rem; background: linear-gradient(45deg, var(--gold), #FFD700); border: none; border-radius: 50px; font-weight: bold; cursor: pointer; }
+
+/* 棋盤佈局 */
+.game-layout { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.ctrl-middle { display: flex; align-items: center; gap: 10px; }
+.board { 
+    display: grid; grid-template-columns: repeat(6, 52px); 
+    grid-template-rows: repeat(6, 52px); gap: 6px; 
+    padding: 12px; background: rgba(255,255,255,0.05); border-radius: 18px;
+    border: 1px solid var(--border);
+}
+
+/* 按鈕改為外側方向 */
+.ctrl-btn { 
+    background: var(--glass); border: 1px solid var(--border); color: var(--gold); 
+    cursor: pointer; border-radius: 6px; font-size: 16px; transition: 0.2s;
+}
+.ctrl-btn:hover { background: var(--gold); color: black; }
+
+/* 這裡確保按鈕位置對齊中間兩行/列 */
+.ctrl-row { display: flex; gap: 6px; width: 342px; justify-content: center; }
+.ctrl-row button { width: 52px; height: 30px; }
+.ctrl-col { display: flex; flex-direction: column; gap: 6px; height: 342px; justify-content: center; }
+.ctrl-col button { width: 30px; height: 52px; }
+
+/* 顏色定義：綠色改為白色 */
+.c-0 { background: #333; } /* 固定灰 */
+.c-1 { background: #e67e22; box-shadow: 0 0 12px #e67e22; } /* 橙 */
+.c-2 { background: #ffffff; box-shadow: 0 0 12px #ffffff; } /* 白色 (原綠) */
+.c-3 { background: #3498db; box-shadow: 0 0 12px #3498db; } /* 藍 */
+.c-4 { background: #f1c40f; box-shadow: 0 0 12px #f1c40f; } /* 黃 */
+
+/* 下方介紹區 */
+.intro-footer {
+    min-height: 100vh; 
+    width: 100%; /* 🌟 加上這行 */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 40px 20px; 
+    box-sizing: border-box;
+}
+.intro-content { max-width: 600px; width: 90%; padding: 40px; text-align: center; }
+.gold-line { width: 50px; height: 3px; background: var(--gold); margin: 20px auto; }
+.features { display: inline-block; text-align: left; list-style: none; padding: 0; line-height: 2.2; }
+.features span { color: var(--gold); margin-right: 10px; }
+.btn-outline { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 8px 20px; border-radius: 8px; cursor: pointer; margin-top: 20px; }
+.game-info { margin-top: 15px; display: flex; gap: 25px; align-items: center; }
+
+/* 確保棋盤大小合適 */
+.board {
+    display: grid;
+    grid-template-columns: repeat(6, 50px);
+    grid-template-rows: repeat(6, 50px);
+    gap: 8px;
+    justify-content: center;
+}
+
+/* 格子基礎設定：加入 flex 讓箭頭文字可以置中 */
+/* 格子基礎設定 */
+.cell {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    position: relative; /* 為了讓箭頭絕對定位 */
+    transition: 0.3s ease;
+}
+
+/* 可以點擊的邊緣彩色塊 */
+.cell.clickable {
+    cursor: pointer;
+}
+
+.cell.clickable:hover {
+    filter: brightness(1.2);
+    transform: scale(1.05);
+}
+
+/* --- 把箭頭懸浮在棋盤外面的魔術 --- */
+.cell.clickable::after {
+    position: absolute;
+    color: #888; /* 箭頭顏色 */
+    font-size: 18px;
+    font-weight: bold;
+    pointer-events: none; /* 避免擋住點擊 */
+    transition: 0.3s;
+}
+
+.cell.clickable:hover::after { color: var(--gold); }
+
+/* 設定各方向箭頭的位置 (推到格子外面) */
+.cell.arrow-up::after { content: '↑'; top: -30px; left: 50%; transform: translateX(-50%); }
+.cell.arrow-down::after { content: '↓'; bottom: -30px; left: 50%; transform: translateX(-50%); }
+.cell.arrow-left::after { content: '←'; left: -30px; top: 50%; transform: translateY(-50%); }
+.cell.arrow-right::after { content: '→'; right: -30px; top: 50%; transform: translateY(-50%); }
+
+/* 顏色定義 (參考你的截圖完美還原) */
+.c-0 { background: #444; } /* 固定的深灰色角塊 */
+.c-1 { background: #e74c3c; box-shadow: 0 0 10px rgba(231,76,60,0.5); } /* 紅色 */
+.c-2 { background: #e67e22; box-shadow: 0 0 10px rgba(230,126,34,0.5); } /* 橙色 */
+.c-3 { background: #f1c40f; box-shadow: 0 0 10px rgba(241,196,15,0.5); } /* 黃色 */
+.c-4 { background: #3498db; box-shadow: 0 0 10px rgba(52,152,219,0.5); } /* 藍色 */
+.c-5 { background: #ffffff; box-shadow: 0 0 10px rgba(255,255,255,0.5); } /* 白色 */
+
+
+.btn-nav {
+    background: none;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.game-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    border-radius: 30px;
+}
+
+.countdown-text {
+    font-size: 8rem;
+    color: var(--gold);
+    font-weight: bold;
+    text-shadow: 0 0 30px var(--gold);
+    animation: pop 1s ease-in-out infinite;
+}
+
+/* 倒數跳動動畫 */
+@keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+/* 過關時棋盤的發光效果 */
+.board.win-glow {
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.6);
+    border: 1px solid var(--gold);
+    transition: 0.8s ease;
+}

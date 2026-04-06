@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>五色棋 v1.1 - 智能推演</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="space-bg"></div>
+    <nav class="fixed-nav">
+        <div class="nav-content">
+            <div class="logo">五色棋<span>v1.1</span></div>
+            <button class="btn-nav" id="btn-to-intro">遊戲介紹 ↓</button>
+        </div>
+    </nav>
+
+    <main class="hero">
+        <div id="main-menu" class="glass-card central-ui">
+            <h1 class="glitter-text">五色棋</h1>
+            <p class="subtitle">推 演 之 局</p>
+            <div class="difficulty-box">
+                <p>選擇難度</p>
+                <div class="lv-group">
+                    <button class="lv-btn active" data-lv="1">1</button>
+                    <button class="lv-btn" data-lv="2">2</button>
+                    <button class="lv-btn" data-lv="3">3</button>
+                    <button class="lv-btn" data-lv="4">4</button>
+                    <button class="lv-btn" data-lv="5">5</button>
+                </div>
+            </div>
+            <button class="btn-start" id="start-btn">開始遊戲</button>
+        </div>
+        
+        <div id="game-container" style="display: none; position: relative;">
+            
+            <div id="countdown-overlay" class="game-overlay" style="display: none;">
+                <div id="countdown-text" class="countdown-text">3</div>
+            </div>
+
+            <div id="win-modal" class="game-overlay" style="display: none;">
+                <div class="glass-card" style="text-align: center; padding: 40px; border: 2px solid var(--gold);">
+                    <h2 class="glitter-text" style="font-size: 3.5rem;">BINGO!</h2>
+                    <p style="font-size: 1.2rem; margin: 10px 0; color: #ddd;">完美的推演</p>
+                    <p style="font-size: 1.2rem; margin-top: 20px;">總移動次數：<span id="win-moves" style="color: var(--gold); font-size: 2rem; font-weight: bold;">0</span></p>
+                    <button class="btn-start" onclick="location.reload()" style="margin-top: 30px; padding: 10px 40px;">再來一局</button>
+                </div>
+            </div>
+
+            <div class="glass-card" style="padding: 20px;">
+               <div class="board" id="board"></div>
+            </div>
+    
+            <div class="game-info" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; max-width: 350px; margin-inline: auto;">
+              <span style="font-size: 1.2rem;">移動次數：<b id="move-count" style="color: var(--gold);">0</b></span>
+              <button class="btn-outline" onclick="location.reload()">重新開始</button>
+            </div>
+        </div>
+    </main>
+    
+    <section class="intro-footer" id="intro-section">
+        <div class="glass-card intro-content">
+            <h2 class="gold-text">遊戲介紹</h2>
+            <div class="gold-line"></div>
+            <ul class="features">
+                <li><span>✦</span> <strong>固定支點：</strong>棋盤四個角落為灰色固定塊，無法移動。</li>
+                <li><span>✦</span> <strong>外部拉動：</strong>點擊邊緣箭頭向外拉動，中間行/列隨之循環位移。</li>
+                <li><span>✦</span> <strong>推演目標：</strong>使 9 個 2x2 區域顏色統一。</li>
+            </ul>
+            <button class="btn-outline" id="btn-back-top">回到頂端 ↑</button>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
